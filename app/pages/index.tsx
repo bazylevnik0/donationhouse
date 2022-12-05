@@ -43,7 +43,7 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <button onClick={()=>signIn()}>sign in</button>
+          <button onClick={()=>signIn()}>enter</button>
         </main>
 
         <footer className={styles.footer}>
