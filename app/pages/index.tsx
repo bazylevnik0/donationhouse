@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-       
+        main
       </main>
 
       <footer className={styles.footer}>
@@ -21,7 +21,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          created by bazylevnik0 for Hack the Bronx 2
+          Powered by bazylevnik0 for Hack the Bronx 2
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
