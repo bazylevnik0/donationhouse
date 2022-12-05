@@ -17,6 +17,9 @@ export default function Home() {
 
         <main className={styles.main}>
           Signed in as {session.user.email} <br />
+          <button>get house</button>
+          <button>put house</button>
+          <button className={styles.buttonGreen}>donation</button>
         </main>
 
         <footer className={styles.footer}>
@@ -30,7 +33,7 @@ export default function Home() {
               <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
             </span>
           </a>
-        </footer>
+          </footer>
       </div>
     )
   } else {
