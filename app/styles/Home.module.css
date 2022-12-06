@@ -108,8 +108,12 @@
   margin-left: 0.5rem;
 }
 
-.buttonGreen {
+.LinkGray {
+  background-color:gray;
+}
+.LinkGreen {
   background-color: green;
+  color: white;
 }
 
 @media (max-width: 600px) {
