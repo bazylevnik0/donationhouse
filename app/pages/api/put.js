@@ -5,6 +5,7 @@ export default function handler(req, res) {
   const prisma = new PrismaClient()
   
   async function put() {
+    console.log("api/put: put by "+ req.body.signPut)
     await prisma.dbMain.create({
       data: {
         address: req.body.address,

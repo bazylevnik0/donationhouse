@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-export default function handler(req, res) { 
+export default function handler(req, res) {
   if(req.query.db =='dbMain') {
     const prisma = new PrismaClient()
 
