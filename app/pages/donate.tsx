@@ -4,8 +4,12 @@ import styles from '../styles/Donate.module.css'
 import {signIn, useSession} from "next-auth/react"
 import Link from 'next/link'
 
-export default function Donate() {
+export default function Donate(props: any) {
   const {data: session} = useSession();
+
+  async function onClickDonate() {
+    await fetch(`http://localhost:3000/api/donate?id=${props.id}&sessionUserEmail=${session.user.email}`)
+  }
 
   if (session) {
     return (
@@ -19,9 +23,9 @@ export default function Donate() {
         <main className={styles.main}>
           Signed in as {session.user.email} <br />
           <div className={styles.divInfo}>
-            ...
+            <p>{props.requisites}</p>
           </div>
-          <Link href="/donate" className={styles.LinkGreen}>donate</Link>
+          <Link href="/donate" className={styles.LinkGreen} onClick={onClickDonate}>donate</Link>
         </main>
 
         <footer className={styles.footer}>
@@ -65,5 +69,23 @@ export default function Donate() {
         </footer>
       </div>
     )
+  }
+}
+
+export const getServerSideProps = async () => {
+  const response = await fetch(`http://localhost:3000/api/get?db=dbSide`)
+
+  const house = await response.json()
+
+  return {
+    props: {
+      id: house.id,
+      address: house.address,
+      phone: house.phone,
+      requisites: house.requisites,
+      signPut: house.signPut,
+      signGet: house.signGet,
+      signDonate: house.signDonate,
+    }
   }
 }

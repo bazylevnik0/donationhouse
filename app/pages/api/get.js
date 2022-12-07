@@ -1,21 +1,58 @@
 import { PrismaClient } from '@prisma/client'
 
 export default function handler(req, res) { 
-  const prisma = new PrismaClient()
+  if(req.query.db =='dbMain') {
+    const prisma = new PrismaClient()
 
-  var house
-  async function get() {
-    house = await prisma.dbMain.findFirst()
+    var house
+    async function get() {
+      house = await prisma.dbMain.findFirst()
+    }
+    get()
+    .then(async () => {
+      await prisma.$disconnect()
+      if(house) {
+        res.status(200).json(house)
+        res.end()
+      } else {
+        res.status(200).json({
+          id: 0,
+          address: "",
+          phone: "",
+          requisites: "",
+          signPut: "",
+          signGet: "",
+        })
+        res.end()
+      }
+    })
   }
-  get()
-  .then(async () => {
-    await prisma.$disconnect()
-    res.status(200).json(house)
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+  if(req.query.db =='dbSide') {
+    const prisma = new PrismaClient()
+
+    var house
+    async function get() {
+      house = await prisma.dbSide.findFirst()
+    }
+    get()
+    .then(async () => {
+      await prisma.$disconnect()
+      if(house) {
+        res.status(200).json(house)
+        res.end()
+      } else {
+        res.status(200).json({
+          id: 0,
+          address: "",
+          phone: "",
+          requisites: "",
+          signPut: "",
+          signGet: "",
+          signDonate: "",
+        })
+        res.end()
+      }
+    })
+  }
 }
   

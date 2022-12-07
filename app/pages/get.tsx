@@ -8,17 +8,7 @@ export default function Get(props: any) {
   const {data: session} = useSession();
 
   async function onClickGet(){
-    await fetch("/api/delete", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: props.id
-        //and after sign and send to dbSide
-      })
-    })  
+     await fetch(`/api/trans?id=${props.id}&sessionUserEmail=${session.user.email}`)  
   }
 
   if (session) {
@@ -84,7 +74,7 @@ export default function Get(props: any) {
 }
 
 export const getServerSideProps = async () => {
-  const response = await fetch(`http://localhost:3000/api/get`)
+  const response = await fetch(`http://localhost:3000/api/get?db=dbMain`)
 
   const house = await response.json()
 
@@ -92,7 +82,9 @@ export const getServerSideProps = async () => {
     props: {
       id: house.id,
       address: house.address,
-      phone: house.phone
+      phone: house.phone,
+      requisites: house.requisites,
+      signPut: house.signPut
     }
   }
 }

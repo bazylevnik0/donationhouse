@@ -2,8 +2,6 @@ import { PrismaClient } from '@prisma/client'
 
 
 export default function handler(req, res) {
-  console.log("put handler")
- 
   const prisma = new PrismaClient()
   
   async function put() {
@@ -21,10 +19,6 @@ export default function handler(req, res) {
   .then(async () => {
     await prisma.$disconnect()
     res.status(200).json({ status: '200' })
+    res.end()
   })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })   
 }
