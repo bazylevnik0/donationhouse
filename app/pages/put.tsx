@@ -37,6 +37,9 @@ export default function Put() {
       })
     })  
     setActive(1)
+    setTimeout(()=>{
+      setActive(0)
+    },"500")
   }
   
   if (session) {

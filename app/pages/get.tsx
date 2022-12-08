@@ -12,6 +12,9 @@ export default function Get(props: any) {
   async function onClickGet(){
      await fetch(`/api/trans?id=${props.id}&sessionUserEmail=${session.user.email}`) 
      setActive(1)
+     setTimeout(()=>{
+      setActive(0)
+     },"500")
   }
 
   if (session) {
