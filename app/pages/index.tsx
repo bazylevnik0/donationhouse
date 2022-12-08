@@ -17,10 +17,12 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          Signed in as {session.user.email} <br />
-          <Link href="/get" className={styles.LinkGray}>get house</Link>
-          <Link href="/put" className={styles.LinkGray}>put house</Link>
-          <Link href="/donate" className={styles.LinkGreen}>donate</Link>
+          <div className={styles.divMain}>
+            <p>Signed in as <br />{session.user.email}</p> <br /><br />
+            <Link href="/get" className={styles.LinkWhite}>get house</Link><br /><br /><br />
+            <Link href="/put" className={styles.LinkWhite}>put house</Link><br /><br /><br />
+            <Link href="/donate" className={styles.LinkGreen}>donate</Link>
+          </div>
         </main>
 
         <footer className={styles.footer}>
@@ -47,7 +49,9 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <button onClick={()=>signIn()}>enter</button>
+          <div className={styles.divMain}>
+            <Link href="/" onClick={()=>signIn()} className={styles.LinkWhite}>enter</Link>
+          </div>
         </main>
 
         <footer className={styles.footer}>

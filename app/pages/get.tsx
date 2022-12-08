@@ -3,12 +3,15 @@ import Image from 'next/image'
 import styles from '../styles/Get.module.css'
 import {signIn, useSession} from "next-auth/react"
 import Link from 'next/link'
+import {useState} from 'react'
 
 export default function Get(props: any) {
-  const {data: session} = useSession();
+  const {data: session} = useSession()
+  var [active,setActive] = useState(0)
 
   async function onClickGet(){
-     await fetch(`/api/trans?id=${props.id}&sessionUserEmail=${session.user.email}`)  
+     await fetch(`/api/trans?id=${props.id}&sessionUserEmail=${session.user.email}`) 
+     setActive(1)
   }
 
   if (session) {
@@ -21,13 +24,15 @@ export default function Get(props: any) {
         </Head>
 
         <main className={styles.main}>
-          Signed in as {session.user.email} <br />
-            <div className={styles.divInfo}>
-              <p>{props.address}</p>
-              <p>{props.phone}</p>
-            </div>
-          <Link href="/get" className={styles.LinkGray} onClick={onClickGet}>get house</Link>
-        </main>
+          <div className={styles.divMain}>
+              <p>Signed in as <br />{session.user.email}</p> <br />
+              <div className={active? styles.divInfoActive : styles.divInfo }>
+                <p>{props.address}</p>
+                <p>{props.phone}</p>
+              </div><br />
+              <Link href="/get" className={active? styles.LinkActive : styles.LinkBlue} onClick={onClickGet}>get house</Link>
+          </div>
+              </main>
 
         <footer className={styles.footer}>
           <a
@@ -53,7 +58,9 @@ export default function Get(props: any) {
         </Head>
 
         <main className={styles.main}>
-          <button onClick={()=>signIn()}>enter</button>
+        <div className={styles.divMain}>
+          <Link href="/" onClick={()=>signIn()} className={styles.LinkWhite}>enter</Link>
+        </div>
         </main>
 
         <footer className={styles.footer}>

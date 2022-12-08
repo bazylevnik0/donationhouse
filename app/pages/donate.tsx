@@ -3,12 +3,18 @@ import Image from 'next/image'
 import styles from '../styles/Donate.module.css'
 import {signIn, useSession} from "next-auth/react"
 import Link from 'next/link'
+import {useState} from 'react'
 
 export default function Donate(props: any) {
   const {data: session} = useSession();
+  var [active,setActive] = useState(0)
 
   async function onClickDonate() {
     await fetch(`http://localhost:3000/api/donate?id=${props.id}&sessionUserEmail=${session.user.email}`)
+    setActive(1)
+    setTimeout(()=>{
+      setActive(0)
+    },"500")
   }
 
   if (session) {
@@ -21,11 +27,13 @@ export default function Donate(props: any) {
         </Head>
 
         <main className={styles.main}>
-          Signed in as {session.user.email} <br />
-          <div className={styles.divInfo}>
-            <p>{props.requisites}</p>
+          <div className={styles.divMain}>  
+            <p>Signed in as <br />{session.user.email}</p> <br />
+            <div className={active? styles.divInfoActive : styles.divInfo}>
+              <p>{props.requisites}</p>
+            </div><br />
+            <Link href="/donate" className={active? styles.LinkActive : styles.LinkGreen} onClick={onClickDonate}>donate</Link>
           </div>
-          <Link href="/donate" className={styles.LinkGreen} onClick={onClickDonate}>donate</Link>
         </main>
 
         <footer className={styles.footer}>
@@ -52,7 +60,9 @@ export default function Donate(props: any) {
         </Head>
 
         <main className={styles.main}>
-          <button onClick={()=>signIn()}>enter</button>
+          <div className={styles.divMain}>
+            <Link href="/" onClick={()=>signIn()} className={styles.LinkWhite}>enter</Link>
+          </div>
         </main>
 
         <footer className={styles.footer}>

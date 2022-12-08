@@ -6,10 +6,11 @@ import Link from 'next/link'
 import {useState} from 'react'
 
 export default function Put() {
-  const {data: session} = useSession();
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [requisites, setRequisites] = useState("");
+  const {data: session} = useSession()
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState("")
+  const [requisites, setRequisites] = useState("")
+  var [active,setActive] = useState(0)
 
   function onChangeAddress(event: React.ChangeEvent<HTMLInputElement>){
     setAddress(event.target.value)
@@ -21,7 +22,6 @@ export default function Put() {
     setRequisites(event.target.value)
   }
   async function onClickPut(){
-    console.log("onClickPut") 
     await fetch("/api/put", {
       method: 'POST',
       headers: {
@@ -36,6 +36,7 @@ export default function Put() {
         signGet: ""
       })
     })  
+    setActive(1)
   }
   
   if (session) {
@@ -48,16 +49,18 @@ export default function Put() {
         </Head>
 
         <main className={styles.main}>
-          Signed in as {session.user.email} <br />
-          <div className={styles.divInfo}>
-            <label>address</label><br />
-            <input type="text" onChange={onChangeAddress} value={address}></input><br />
-            <label>phone</label><br />
-            <input type="text" onChange={onChangePhone} value={phone}></input><br />
-            <label>requisites</label><br />
-            <input type="text" onChange={onChangeRequisites} value={requisites}></input><br />
+          <div className={styles.divMain}>
+            <p>Signed in as <br />{session.user.email}</p> <br />
+            <div className={active? styles.divInfoActive : styles.divInfo}>
+              <label>address</label><br />
+              <input type="text" onChange={onChangeAddress} value={address}></input><br />
+              <label>phone</label><br />
+              <input type="text" onChange={onChangePhone} value={phone}></input><br />
+              <label>requisites</label><br />
+              <input type="text" onChange={onChangeRequisites} value={requisites}></input><br /><br />
+            </div><br />
+            <Link href="/put" className={active? styles.LinkActive : styles.LinkBlue} onClick={onClickPut}>put house</Link>
           </div>
-          <Link href="/put" className={styles.LinkGray} onClick={onClickPut}>put house</Link>
         </main>
 
         <footer className={styles.footer}>
@@ -84,7 +87,9 @@ export default function Put() {
         </Head>
 
         <main className={styles.main}>
-          <button onClick={()=>signIn()}>enter</button>
+          <div className={styles.divMain}>
+            <Link href="/" onClick={()=>signIn()} className={styles.LinkWhite}>enter</Link>
+          </div>
         </main>
 
         <footer className={styles.footer}>
